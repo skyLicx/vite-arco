@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <a-tag
-      v-for="(tag, index) in tagList"
-      :key="tag.fullPath"
-      :class="{ 'link-activated': tag.fullPath === $route.fullPath }"
-      @click="goto(tag)"
-    >
-      <span class="tag-link">
-        {{ tag.title }}
-      </span>
-      <span
-        class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
-        @click.stop="tagClose(tag, index)"
-      >
-        <icon-close />
-      </span>
-    </a-tag>
+  <div class="tab-bar-container">
+    <div class="tab-bar-scroll">
+      <div class="tags-wrap">
+        <a-tag
+          v-for="(tag, index) in tagList"
+          :key="tag.fullPath"
+          class="tag"
+          :class="{ 'link-activated': tag.fullPath === $route.fullPath }"
+          @click="goto(tag)"
+        >
+          <span class="tag-link">
+            {{ tag.title }}
+          </span>
+          <span
+            class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
+            @click.stop="tagClose(tag, index)"
+          >
+            <icon-close />
+          </span>
+        </a-tag>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -61,6 +66,7 @@
     const active = tabBarStore.tagList.find(
       (e) => e.name === currentRouteName.value
     )
+    console.log(active, 'active')
     if (!active) {
       const latest = tagList.value[tagList.value.length - 1]
       router.push({ name: latest.name })
@@ -69,6 +75,26 @@
 </script>
 
 <style lang="scss" scoped>
+  .tab-bar-container {
+    background-color: #fff;
+    padding: 0 0 0 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    .tab-bar-scroll {
+      height: 32px;
+      flex: 1;
+      overflow: hidden;
+      .tags-wrap {
+        padding: 4px 0;
+        white-space: nowrap;
+        overflow-x: auto;
+        height: 48px;
+        .tag {
+          margin-right: 6px;
+        }
+      }
+    }
+  }
   .link-activated {
     background-color: #a1b3ea;
   }
