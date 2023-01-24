@@ -7,6 +7,8 @@ import '@/api/interceptor'
 import store from './store'
 import router from './router'
 import App from './App.vue'
+// 自定义过渡动画
+import '@/styles/css/transition.css'
 
 const app = createApp(App)
 

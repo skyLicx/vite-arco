@@ -14,4 +14,6 @@ const appClientMenus = mixinRoutes.map((el) => {
   }
 })
 
+console.log(appClientMenus, '//')
+
 export default appClientMenus
