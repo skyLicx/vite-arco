@@ -1,29 +1,32 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
 import { appRoutes } from './routes'
+import { REDIRECT_MAIN, NOT_FOUND_ROUTE } from './routes/base'
 import createRouteGuard from './guard'
-
-const routerMap: AppRouteRecordRaw[] = [
-  {
-    path: '/',
-    redirect: 'login'
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/index.vue')
-  },
-  ...(appRoutes as AppRouteRecordRaw[]),
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'notFound',
-    component: () => import('@/views/not-found/index.vue')
-  }
-]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: routerMap as RouteRecordRaw[],
+  routes: [
+    {
+      path: '/',
+      redirect: 'login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login/index.vue'),
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: () => import('@/views/not-found/index.vue')
+    },
+    ...appRoutes,
+    REDIRECT_MAIN,
+    NOT_FOUND_ROUTE
+  ],
   scrollBehavior() {
     return { top: 0 }
   }

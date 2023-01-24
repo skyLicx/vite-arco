@@ -1,9 +1,15 @@
-import { DEFAULT_LAYOUT } from '@/router/constans'
+import { DEFAULT_LAYOUT } from '../base'
+import { AppRouteRecordRaw } from '../types'
 
-export default {
+const SYSTEMDATA: AppRouteRecordRaw = {
   path: '/systemData',
   name: '系统数据',
   component: DEFAULT_LAYOUT,
+  meta: {
+    locale: '系统数据',
+    requiresAuth: true,
+    icon: 'icon-list'
+  },
   children: [
     {
       path: 'baseData',
@@ -12,7 +18,8 @@ export default {
       meta: {
         locale: '基础数据',
         // 不缓存路由
-        ignoreCache: true
+        ignoreCache: true,
+        requiresAuth: true
       }
     },
     {
@@ -20,7 +27,8 @@ export default {
       name: '项目模板',
       component: () => import('@/views/systemData/template/index.vue'),
       meta: {
-        locale: '项目模板'
+        locale: '项目模板',
+        requiresAuth: true
       }
     },
     {
@@ -28,7 +36,8 @@ export default {
       name: '模板分类',
       component: () => import('@/views/systemData/categorize/index.vue'),
       meta: {
-        locale: '模板分类'
+        locale: '模板分类',
+        requiresAuth: true
       }
     },
     {
@@ -36,8 +45,11 @@ export default {
       name: '医保管理',
       component: () => import('@/views/systemData/medicare/index.vue'),
       meta: {
-        locale: '医保管理'
+        locale: '医保管理',
+        requiresAuth: true
       }
     }
   ]
 }
+
+export default SYSTEMDATA

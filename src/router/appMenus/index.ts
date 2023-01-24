@@ -1,5 +1,6 @@
 import { appRoutes, appExternalRoutes } from '../routes'
 
+// 获取所有的route
 const mixinRoutes = [...appRoutes, ...appExternalRoutes]
 
 const appClientMenus = mixinRoutes.map((el) => {

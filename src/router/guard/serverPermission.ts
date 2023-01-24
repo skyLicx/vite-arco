@@ -1,10 +1,12 @@
 import type { Router } from 'vue-router'
 import { usePermissionStore } from '@/store'
+import testPage from '@/router/routes/modules/testPage'
 
 // 白名单
 const whiteList = [
   { name: 'notFound', children: [] },
-  { name: 'login', children: [] }
+  { name: 'login', children: [] },
+  testPage
 ]
 
 const whiteNameList = ['login', 'notFound']

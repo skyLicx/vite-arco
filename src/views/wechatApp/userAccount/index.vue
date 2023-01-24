@@ -1,8 +1,5 @@
 <template>
-  <div>
-    用户账号
-  </div>
+  <div> 用户账号 </div>
 </template>
 
-<script lang='ts' setup>
-</script>
+<script lang="ts" setup></script>

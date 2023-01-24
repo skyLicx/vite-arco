@@ -9,7 +9,7 @@ const usePermissionStore = defineStore({
     serverMenu: []
   }),
   getters: {
-    getRouters(): AppRouteRecordRaw[] {
+    getRouters(): any[] {
       return this.serverMenu
     }
   },

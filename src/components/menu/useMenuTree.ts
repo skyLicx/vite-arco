@@ -1,19 +1,21 @@
 import { computed } from 'vue'
 import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
-// import appClientMenus from '@/router/appMenus'
+import appClientMenus from '@/router/appMenus'
 import { usePermissionStore } from '@/store'
+import { cloneDeep } from 'lodash'
 
 export default function useMenuTree() {
   const appStore = usePermissionStore()
   // 路由
   const appRoute = computed(() => {
-    // return appClientMenus
-    return appStore.getRouters
+    return appClientMenus
+    // return appStore.getRouters
   })
   // 侧边栏菜单
   const menuTree = computed(() => {
     // 拷贝路由
-    const copyRouter = JSON.parse(JSON.stringify(appRoute.value))
+    const copyRouter = cloneDeep(appRoute.value) as RouteRecordNormalized[]
+    console.log(copyRouter, '..')
     // 路由根据order排序
     copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
       return (a.meta.order || 0) - (b.meta.order || 0)
@@ -51,7 +53,7 @@ export default function useMenuTree() {
       // 去除所有为null的选项
       return collector.filter(Boolean)
     }
-    return travel(copyRouter)
+    return travel(copyRouter as any)
   })
   return {
     menuTree

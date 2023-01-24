@@ -1,7 +1,7 @@
 <script lang="tsx">
-  import { defineComponent, ref, h, compile, computed, watch } from 'vue'
-  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
-  import type { RouteMeta } from 'vue-router'
+  import { defineComponent, ref, h, compile, watch } from 'vue'
+  import { useRouter, RouteRecordRaw } from 'vue-router'
+  import { openWindow, regexUrl } from '@/utils'
   import useMenuTree from './useMenuTree'
 
   export default defineComponent({
@@ -19,6 +19,13 @@
 
       // 路由跳转
       const goto = (item: RouteRecordRaw) => {
+        // Open external link
+        if (regexUrl.test(item.path)) {
+          openWindow(item.path)
+          selectedKey.value = [item.name as string]
+          return
+        }
+        console.log(item.name, 'item')
         router.push({
           name: item.name
         })
