@@ -10,7 +10,7 @@
       // 跳转到需要的路由
       await appStore.getServerMenuConfig()
       router.push({
-        name: '基础数据'
+        name: 'customer'
       })
     } catch (error) {
       console.log(error, 'xx')

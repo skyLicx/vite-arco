@@ -4,7 +4,7 @@ export default Mock.mock(new RegExp('/mock/user/menu'), 'post', () => {
     const menuList = [
       {
         path: '/customer',
-        name: '客户管理',
+        name: 'customer',
         meta: {
           locale: '客户管理',
           requiresAuth: true,
@@ -13,7 +13,7 @@ export default Mock.mock(new RegExp('/mock/user/menu'), 'post', () => {
       },
       {
         path: '/systemData',
-        name: '系统数据',
+        name: 'systemData',
         meta: {
           locale: '系统数据',
           requiresAuth: true,
@@ -22,7 +22,7 @@ export default Mock.mock(new RegExp('/mock/user/menu'), 'post', () => {
         children: [
           {
             path: 'baseData',
-            name: '基础数据',
+            name: 'baseData',
             meta: {
               locale: '基础数据',
               requiresAuth: true,
@@ -30,7 +30,7 @@ export default Mock.mock(new RegExp('/mock/user/menu'), 'post', () => {
           },
           {
             path: 'template',
-            name: '项目模板',
+            name: 'template',
             meta: {
               locale: '项目模板',
               requiresAuth: true,

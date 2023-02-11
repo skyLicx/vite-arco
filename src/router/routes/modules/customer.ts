@@ -5,7 +5,7 @@ const CUSTOMER: AppRouteRecordRaw = {
   path: '/customer',
   component: DEFAULT_LAYOUT,
   redirect: '/customer',
-  name: '客户管理',
+  name: 'customer',
   meta: {
     locale: '客户管理',
     requiresAuth: true,
@@ -15,7 +15,7 @@ const CUSTOMER: AppRouteRecordRaw = {
   children: [
     {
       path: '',
-      name: '客户管理',
+      name: 'customer',
       component: () => import('@/views/customer/index.vue'),
       meta: {
         locale: '客户管理',

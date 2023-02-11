@@ -3,7 +3,7 @@ import { AppRouteRecordRaw } from '../types'
 
 const TESTPAGE: AppRouteRecordRaw = {
   path: '/testpage',
-  name: '测试页面',
+  name: 'testpage',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: '测试页面',
