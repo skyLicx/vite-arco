@@ -30,7 +30,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://admin.rel.ruolinzs.com',
+        target: 'xxx', // 服务器的地址
         ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')

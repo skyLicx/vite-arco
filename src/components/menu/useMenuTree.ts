@@ -8,8 +8,7 @@ export default function useMenuTree() {
   const appStore = usePermissionStore()
   // 路由
   const appRoute = computed(() => {
-    return appClientMenus
-    // return appStore.getRouters
+    return appStore.getRouters
   })
   // 侧边栏菜单
   const menuTree = computed(() => {
