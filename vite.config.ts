@@ -24,6 +24,10 @@ export default defineConfig({
       {
         find: 'vue',
         replacement: 'vue/dist/vue.esm-bundler.js' // 编译模板
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js' // 解决i18n警告
       }
     ]
   },

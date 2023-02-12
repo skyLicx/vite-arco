@@ -24,6 +24,7 @@
     "mockjs": "^1.1.0",
     "pinia": "^2.0.16",
     "vue": "^3.2.37",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {

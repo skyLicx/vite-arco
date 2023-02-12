@@ -1,26 +1,30 @@
 <template>
   <div class="tab-bar-container">
-    <div class="tab-bar-scroll">
-      <div class="tags-wrap">
-        <a-tag
-          v-for="(tag, index) in tagList"
-          :key="tag.fullPath"
-          class="tag"
-          :class="{ 'link-activated': tag.fullPath === $route.fullPath }"
-          @click="goto(tag)"
-        >
-          <span class="tag-link">
-            {{ tag.title }}
-          </span>
-          <span
-            class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
-            @click.stop="tagClose(tag, index)"
-          >
-            <icon-close />
-          </span>
-        </a-tag>
+    <a-affix ref="affixRef" :offset-top="0">
+      <div class="tab-bar-box">
+        <div class="tab-bar-scroll">
+          <div class="tags-wrap">
+            <a-tag
+              v-for="(tag, index) in tagList"
+              :key="tag.fullPath"
+              class="tag"
+              :class="{ 'link-activated': tag.fullPath === $route.fullPath }"
+              @click="goto(tag)"
+            >
+              <span class="tag-link">
+                {{ tag.title }}
+              </span>
+              <span
+                class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
+                @click.stop="tagClose(tag, index)"
+              >
+                <icon-close />
+              </span>
+            </a-tag>
+          </div>
+        </div>
       </div>
-    </div>
+    </a-affix>
   </div>
 </template>
 
@@ -77,20 +81,25 @@
 <style lang="scss" scoped>
   .tab-bar-container {
     background-color: #fff;
-    padding: 0 0 0 20px;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    .tab-bar-scroll {
-      height: 32px;
-      flex: 1;
-      overflow: hidden;
-      .tags-wrap {
-        padding: 4px 0;
-        white-space: nowrap;
-        overflow-x: auto;
-        height: 48px;
-        .tag {
-          margin-right: 6px;
+
+    position: relative;
+    .tab-bar-box {
+      padding: 0 0 0 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      background-color: #fff;
+      .tab-bar-scroll {
+        height: 32px;
+        flex: 1;
+        overflow: hidden;
+        .tags-wrap {
+          padding: 4px 0;
+          white-space: nowrap;
+          overflow-x: auto;
+          height: 48px;
+          .tag {
+            margin-right: 6px;
+          }
         }
       }
     }

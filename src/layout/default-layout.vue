@@ -15,6 +15,7 @@
     </a-layout-sider>
     <!-- 主体 -->
     <a-layout class="layout-main">
+      <Navbar />
       <!-- 标签栏 -->
       <TabBar />
       <!-- 内容 -->
@@ -28,6 +29,7 @@
 <script lang="ts" setup>
   import Menu from '@/components/menu/index.vue'
   import TabBar from '@/components/tab-bar/index.vue'
+  import Navbar from '@/components/navbar/index.vue'
   import PageLayout from './page-layout.vue'
 </script>
 
@@ -39,7 +41,7 @@
     background-color: aqua;
   }
   .layout-sider {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 99;
