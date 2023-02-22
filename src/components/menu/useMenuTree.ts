@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
-import appClientMenus from '@/router/appMenus'
 import { usePermissionStore } from '@/store'
 import { cloneDeep } from 'lodash'
+import appClientMenus from '@/router/appMenus'
 
 export default function useMenuTree() {
   const appStore = usePermissionStore()
@@ -10,32 +10,20 @@ export default function useMenuTree() {
   const appRoute = computed(() => {
     // 服务端数据
     // return appStore.getRouters
-    // 本地数据
-    return appClientMenus
+    return appClientMenus.concat(appStore.getRouters)
   })
   // 侧边栏菜单
   const menuTree = computed(() => {
     // 拷贝路由
-    const copyRouter = cloneDeep(appRoute.value) as RouteRecordNormalized[]
+    const copyRouter: any = cloneDeep(appRoute.value) as RouteRecordNormalized[]
     console.log(copyRouter, '..')
     // 路由根据order排序
     copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
-      return (a.meta.order || 0) - (b.meta.order || 0)
+      return (a.meta?.order || 0) - (b.meta?.order || 0)
     })
-    function travel(_routes: RouteRecordRaw[]) {
+    function travel(_routes: RouteRecordRaw[], layer: number) {
       if (!_routes) return null
-
       const collector: any = _routes.map((element) => {
-        // no access
-        // if (!permission.accessRouter(element)) {
-        // 	return null
-        // }
-
-        // 隐藏菜单
-        if (element.meta?.hideInMenu === true) {
-          return null
-        }
-
         // 隐藏子路由菜单或没有子路由时children置空
         if (element.meta?.hideChildrenInMenu || !element.children) {
           element.children = []
@@ -43,8 +31,21 @@ export default function useMenuTree() {
         }
 
         // 处理子路由
-        const subItem = travel(element.children)
+        // route filter hideInMenu true
+        element.children = element.children.filter(
+          (x) => x.meta?.hideInMenu !== true
+        )
 
+        const subItem = travel(element.children, layer + 1)
+
+        // 如果只有一个子路由则不显示根路由
+        if (
+          element.children.length === 1 &&
+          !element.meta?.isAlwaysShow &&
+          layer < 1
+        ) {
+          return element.children[0]
+        }
         if (subItem.length) {
           element.children = subItem
           return element
@@ -55,7 +56,7 @@ export default function useMenuTree() {
       // 去除所有为null的选项
       return collector.filter(Boolean)
     }
-    return travel(copyRouter as any)
+    return travel(copyRouter, 0)
   })
   return {
     menuTree

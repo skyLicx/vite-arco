@@ -31,29 +31,24 @@
         })
       }
 
-      const findMenuOpenKeys = (name: string) => {
+      const findMenuOpenKeys = (target: string) => {
         const result: string[] = []
         let isFind = false
-        const backtrack = (
-          item: RouteRecordRaw,
-          keys: string[],
-          target: string
-        ) => {
+        const backtrack = (item: RouteRecordRaw, keys: string[]) => {
           if (item.name === target) {
             isFind = true
-            result.push(...keys, item.name as string)
+            result.push(...keys)
             return
           }
           if (item.children?.length) {
             item.children.forEach((el) => {
-              backtrack(el, [...keys], target)
+              backtrack(el, [...keys, el.name as string])
             })
           }
         }
         menuTree.value.forEach((el: RouteRecordRaw) => {
-          if (isFind) return
-          // 先把首层的name放进去
-          backtrack(el, [el.name as string], name)
+          if (isFind) return // Performance optimization
+          backtrack(el, [el.name as string])
         })
         return result
       }
@@ -62,7 +57,9 @@
         () => router.currentRoute.value,
         (route) => {
           const menuOpenKeys = findMenuOpenKeys(route.name as string)
+          console.log(menuOpenKeys, 'menuOpenKeys')
           const keySet = new Set([...menuOpenKeys, ...openKeys.value])
+          console.log(keySet, 'keySet')
           openKeys.value = [...keySet]
           selectedKey.value = [menuOpenKeys[menuOpenKeys.length - 1]]
         },

@@ -12,6 +12,6 @@
 </script>
 <script lang="ts">
   export default {
-    name: '模板分类'
+    name: 'Categorize'
   }
 </script>

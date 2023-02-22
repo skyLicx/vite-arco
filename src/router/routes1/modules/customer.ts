@@ -18,7 +18,7 @@ const CUSTOMER: AppRouteRecordRaw = {
       name: 'customer',
       component: () => import('@/views/customer/index.vue'),
       meta: {
-        locale: '客户管理1',
+        locale: '客户管理',
         requiresAuth: true
       }
     }

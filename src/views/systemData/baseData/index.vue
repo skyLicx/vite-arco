@@ -9,10 +9,11 @@
   import { ref } from 'vue'
 
   const text = ref('xxx')
+  console.log('....')
 </script>
 <script lang="ts">
   export default {
     // 要写name才能缓存路由
-    name: '基础数据'
+    name: 'BaseData'
   }
 </script>

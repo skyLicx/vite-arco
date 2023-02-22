@@ -1,12 +1,10 @@
 <template>
-  <router-view>
-    <template #default="{ Component, route }">
-      <transition name="fade" mode="out-in" appear>
-        <keep-alive :include="cacheList">
-          <component :is="Component" :key="route.fullPath" />
-        </keep-alive>
-      </transition>
-    </template>
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade" mode="out-in" appear>
+      <keep-alive :include="cacheList">
+        <component :is="Component" :key="route.fullPath" />
+      </keep-alive>
+    </transition>
   </router-view>
 </template>
 
@@ -16,5 +14,7 @@
 
   const tabBarStore = useTabBarStore()
   // 缓存路由列表
-  const cacheList = computed(() => tabBarStore.getCacheList)
+  const cacheList = computed(() => {
+    return tabBarStore.getCacheList
+  })
 </script>
