@@ -48,7 +48,10 @@
     (route) => {
       currentRouteName.value = route.name as string
       // 过滤重复标签
-      if (!tagList.value.some((tag) => tag.fullPath === route.fullPath)) {
+      if (
+        !route.meta?.noAffix &&
+        !tagList.value.some((tag) => tag.fullPath === route.fullPath)
+      ) {
         // 更新标签栏 插入新的标签
         tabBarStore.updateTabList(route)
       }

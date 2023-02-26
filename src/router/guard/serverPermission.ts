@@ -8,7 +8,7 @@ export default function setupServerPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     // 获取后端权限路由
     const appStore = usePermissionStore()
-    // 未登录或还没有动态路由数据
+    // 已经登录并且还没有获取动态路由数据则重新获取
     if (localStorage.getItem('token') && !appStore.getRouters.length) {
       // 从服务端获取路由
       await appStore.getServerMenuConfig()
@@ -35,9 +35,8 @@ export default function setupServerPermissionGuard(router: Router) {
       routes.forEach((item) => {
         router.addRoute(item)
       })
-      // 将404添加在路由最后
+      // 将404添加在路由最后 否则动态路由还没添加完毕前跳转会出错
       router.addRoute(NOT_FOUND_ROUTE)
-      console.log(router.getRoutes(), '//')
       next(to)
     } else {
       next()

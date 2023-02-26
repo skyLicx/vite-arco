@@ -1,45 +1,57 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 
 module.exports = {
   root: true,
-  /* 指定如何解析语法。*/
   parser: 'vue-eslint-parser',
-  /* 优先级低于parse的语法解析配置 */
   parserOptions: {
+    // Parser that checks the content of the <script> tag
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
     ecmaVersion: 2020,
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   env: {
     'browser': true,
     'node': true,
-    //使用setup语法糖
-    'vue/setup-compiler-macros': true,
+    'vue/setup-compiler-macros': true
   },
+  plugins: ['@typescript-eslint'],
   extends: [
+    // Airbnb JavaScript Style Guide https://github.com/airbnb/javascript
     'airbnb-base',
-    'plugin:@typescript-eslint/recommended', // typescript-eslint推荐规则,
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended'
   ],
   settings: {
     'import/resolver': {
       typescript: {
-        project: path.resolve(__dirname, './tsconfig.json'),
-      },
-    },
+        project: path.resolve(__dirname, './tsconfig.json')
+      }
+    }
   },
   rules: {
     'prettier/prettier': 1,
-    '@typescript-eslint/no-explicit-any': 'off',
-    // 关闭此规则 使用 prettier 的格式化规则， 感觉prettier 更加合理，
-    // 而且一起使用会有冲突
+    // Vue: Recommended rules to be closed or modify
+    'vue/require-default-prop': 0,
+    'vue/singleline-html-element-content-newline': 0,
     'vue/max-attributes-per-line': 0,
+    // Vue: Add extra rules
+    'vue/custom-event-name-casing': [2, 'camelCase'],
+    'vue/no-v-text': 1,
+    'vue/padding-line-between-blocks': 1,
+    'vue/require-direct-export': 1,
     'vue/multi-word-component-names': 0,
+    // Allow @ts-ignore comment
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/no-empty-function': 1,
+    '@typescript-eslint/no-explicit-any': 0,
     'import/extensions': [
       2,
       'ignorePackages',
@@ -47,13 +59,12 @@ module.exports = {
         js: 'never',
         jsx: 'never',
         ts: 'never',
-        tsx: 'never',
-      },
+        tsx: 'never'
+      }
     ],
-    'no-console': 0,
-    'no-param-reassign': 0,
-    'import/no-extraneous-dependencies': 0,
-    // debugger
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-  },
+    'no-param-reassign': 0,
+    'prefer-regex-literals': 0,
+    'import/no-extraneous-dependencies': 0
+  }
 }

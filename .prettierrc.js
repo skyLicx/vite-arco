@@ -10,6 +10,6 @@ module.exports = {
   htmlWhitespaceSensitivity: 'ignore',
   // vue文件的script标签和Style标签下的内容需要缩进
   vueIndentScriptAndStyle: true,
-  trailingComma: "none",
-  endOfLine: 'auto',
+  trailingComma: 'none',
+  endOfLine: 'auto'
 }
